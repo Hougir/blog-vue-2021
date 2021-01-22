@@ -1,13 +1,13 @@
-# gblog
+# blog-vue-2021
 <p align="center">
   <img width="80" src="http://cdn.fengziy.cn/gblog/logo.svg"/>
 </p>
 <p align="center">
-  <a href="https://gitee.com/fengziy/Gblog">
+  <a href="https://github.com/yellowhao1204/blog-vue-2021.git">
     <img src="https://gitee.com/fengziy/Gblog/badge/star.svg?theme=white" alt="star"/>
     <img src="https://gitee.com/fengziy/Gblog/badge/fork.svg" alt="fork"/>
   </a>
-  <a href="https://github.com/fengziye/Gblog">
+  <a href="https://github.com/yellowhao1204/blog-vue-2021.git">
       <img src="https://img.shields.io/github/stars/fengziye/Gblog.svg?style=social" alt="Github star"/>
       <img src="https://img.shields.io/github/forks/fengziye/Gblog.svg?style=social" alt="Github forks"/>
   </a>
