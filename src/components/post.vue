@@ -37,12 +37,12 @@
 <script>
 
     export default {
-        name: "post",
-        props: {
-            post: {
-                type: Object
-            }
+      name: "post",
+      props: {
+        post: {
+          type: [Object],
         }
+      }
     }
 </script>
 

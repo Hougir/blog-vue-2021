@@ -46,6 +46,7 @@
     import SmallIco from '@/components/small-ico'
     import Quote from '@/components/quote'
     import {fetchFocus, fetchList} from '../api'
+    //import {list} from '@/api/post'
 
     export default {
         name: 'Home',
@@ -103,11 +104,22 @@
                     this.currPage = res.data.page
                     this.hasNextPage = res.data.hasNextPage
                 })
-            }
+            },
+            /*getPage() {
+              //alert(88888)
+              list().then((response) => {
+                const page = response.data;
+                alert(666);
+              }).catch(err => {
+                alert(444);
+                console.log(err)
+              });
+            }*/
         },
         mounted() {
             this.fetchFocus();
             this.fetchList();
+            //this.getPage();
         }
     }
 </script>

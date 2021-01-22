@@ -1,11 +1,14 @@
 import axios from 'axios'
 import store from '@/store'
 
-// create an axios instance
+// create an axios instance // 创建axios实例
 const service = axios.create({
-    baseURL: process.env.VUE_APP_BASE_API,
-    timeout: 5000 // request timeout
+    baseURL: process.env.BASE_API,
+    //baseURL: "http://localhost:8150/api",
+    timeout: 20000 // request timeout
 })
+
+
 
 // request interceptor
 service.interceptors.request.use(
