@@ -37,7 +37,7 @@ function mockComment(count,id,userName) {
 
 export default [
     {
-        url: '/comment',
+        url: '/mock/comment',
         type: 'get',
         response: () => {
             let count = 1 + ~~(Math.random() * 5)

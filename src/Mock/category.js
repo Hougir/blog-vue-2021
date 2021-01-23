@@ -1,7 +1,7 @@
 const Mock = require('mockjs');
 export default [
     {
-        url: '/category',
+        url: '/mock/category',
         type: 'get',
         response: () => {
             return {

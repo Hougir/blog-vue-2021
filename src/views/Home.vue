@@ -45,8 +45,8 @@
     import Post from '@/components/post'
     import SmallIco from '@/components/small-ico'
     import Quote from '@/components/quote'
-    import {fetchFocus, fetchList} from '../api'
-    //import {list} from '@/api/post'
+    import {fetchFocus} from '../api'
+    import {fetchList} from '../api/post'
 
     export default {
         name: 'Home',

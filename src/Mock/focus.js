@@ -1,7 +1,7 @@
 const Mock = require('mockjs');
 export default [
     {
-        url: '/focus/list',
+        url: '/mock/focus/list',
         type: 'get',
         response: () => {
             return {

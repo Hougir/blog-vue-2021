@@ -40,7 +40,7 @@ for (let i = 0; i < count; i++) {
 
 export default [
     {
-        url: '/post/list',
+        url: '/mock/post/list',
         type: 'get',
         response: config => {
             let {page = 1, size = 10} = config.query;

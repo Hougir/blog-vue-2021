@@ -1,9 +1,9 @@
-import request from '@/utils/request.js'
-
-export function blogList() {
-    //alert(6666)
+import request from '@/utils/request'
+const apiUrl = '/api'
+export function fetchList(params) {
     return request({
-        url: '/blog/list',
-        method: 'post'
+        url: apiUrl+'/post/list',
+        method: 'get',
+        params: params
     })
 }

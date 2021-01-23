@@ -3,7 +3,7 @@ import store from '@/store'
 
 // create an axios instance // 创建axios实例
 const service = axios.create({
-    baseURL: process.env.BASE_API,
+    baseURL: "localhost:8150",
     timeout: 20000 // request timeout
 })
 

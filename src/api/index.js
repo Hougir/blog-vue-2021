@@ -1,16 +1,10 @@
 import request from '@/utils/request'
 
-export function fetchList(params) {
-    return request({
-        url: '/post/list',
-        method: 'get',
-        params: params
-    })
-}
+const mockUrl = '/mock';
 
 export function fetchFocus() {
     return request({
-        url: '/focus/list',
+        url: mockUrl+'/focus/list',
         method: 'get',
         params: {}
     })
@@ -18,7 +12,7 @@ export function fetchFocus() {
 
 export function fetchCategory() {
     return request({
-        url: '/category',
+        url: mockUrl+'/category',
         method: 'get',
         params: {}
     })
@@ -26,7 +20,7 @@ export function fetchCategory() {
 
 export function fetchFriend() {
     return request({
-        url: '/friend',
+        url: mockUrl+'/friend',
         method: 'get',
         params: {}
     })
@@ -34,7 +28,7 @@ export function fetchFriend() {
 
 export function fetchSocial() {
     return request({
-        url: '/social',
+        url: mockUrl+'/social',
         method: 'get',
         params: {}
     });
@@ -42,7 +36,7 @@ export function fetchSocial() {
 
 export function fetchSiteInfo() {
     return request({
-        url: '/site',
+        url: mockUrl+'/site',
         method: 'get',
         params: {}
     })
@@ -50,7 +44,7 @@ export function fetchSiteInfo() {
 
 export function fetchComment() {
     return request({
-        url: '/comment',
+        url: mockUrl+'/comment',
         method: 'get',
         params: {}
     })
