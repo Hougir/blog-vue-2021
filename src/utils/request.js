@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import cookie from 'js-cookie'
 
 // create an axios instance // 创建axios实例
 const service = axios.create({
@@ -17,6 +18,12 @@ service.interceptors.request.use(
         // if (store.getters.token) {
         //     config.headers['X-Token'] = getToken()
         // }
+        if (localStorage.getItem('token')) {
+            config.headers.token = localStorage.getItem('token');
+        }
+        /*if (cookie.get('token')) {
+            config.headers['token'] = cookie.get('token');
+        }*/
         return config
     },
     error => {
@@ -51,7 +58,29 @@ service.interceptors.response.use(
     },
     error => {
         console.log('err' + error) // for debug
-        return Promise.reject(error)
+        if (error.response) {
+            console.log('在respone拦截器检查到错误：')
+            switch (error.response.status) {
+                case 204:
+                    error.response.data.error = '204:No Content（没有内容）'
+                    break
+                case 401:
+                    // 可能是token过期，清除它
+                    localStorage.removeItem('token')
+                    location.reload() // 刷新页面，触发路由守卫
+                    error.response.data.error = '401:Unauthorized（未经授权）'
+                    break
+                case 403:
+                    error.response.data.error = '403:Forbidden（被禁止的）'
+                    break
+                case 500:
+                    error.response.data.error = '500:服务器内部错误'
+                    break
+                default:
+                    return error
+            }
+            return Promise.reject(error.response.data.error)
+        }
     }
 )
 

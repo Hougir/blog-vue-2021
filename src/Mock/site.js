@@ -9,10 +9,10 @@ export default [
                 code: 20000,
                 data: {
                     avatar: 'https://s2.ax1x.com/2020/01/17/1SCadg.png',
-                    slogan: 'The way up is not crowded, and most chose ease.',
-                    name: 'FZY′blog',
+                    slogan: 'Think like a man of action, act like a man of thought.',
+                    name: 'LZ′blog',
                     domain: 'https://www.fengziy.cn',
-                    notice: '本博客的Demo数据由Mockjs生成',
+                    notice: '语言少一点，思想多一些。要像行动者那样思考，要像思考者那样行动。—亨利·柏格森',
                     desc: '一个It技术的探索者'
                 }
             }
@@ -31,7 +31,7 @@ export default [
                         title: 'QQ',
                         icon: 'iconqq',
                         color: '#1AB6FF ',
-                        href: 'http://wpa.qq.com/msgrd?v=3&uin=1224971566&site=qq&menu=yes'
+                        href: 'http://wpa.qq.com/msgrd?v=3&uin=974932539&site=qq&menu=yes'
                     },
                     {
                         id: 2,
@@ -45,7 +45,7 @@ export default [
                         title: 'GitHub',
                         icon: 'icongithub',
                         color: '',
-                        href: 'https://github.com/fengziye'
+                        href: 'https://github.com/yellowhao1204'
                     },
                     {
                         id: 4,

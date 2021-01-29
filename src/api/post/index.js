@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 const apiUrl = '/api'
-export function fetchList(params) {
+export function fetchList(data) {
     return request({
         url: apiUrl+'/post/list',
-        method: 'get',
-        params: params
+        method: 'post',
+        data
     })
 }

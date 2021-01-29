@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import Utils from '../assets/js/utils'
     export default {
         name: "header-search",
         data(){
@@ -27,6 +28,7 @@
             search(){
                 // console.log(this.searchValue)
                 this.$router.push({name:'search',params:{words:this.searchValue}});
+                Utils.$emit('page',this.searchValue);
                 this.close()
             },
             click(){

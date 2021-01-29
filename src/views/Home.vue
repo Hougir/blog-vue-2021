@@ -34,6 +34,7 @@
             <div class="more" v-show="hasNextPage">
                 <div class="more-btn" @click="loadMore">More</div>
             </div>
+          <div align="center"><span v-if="!hasNextPage" style="text-align: center;color: #333333">====== 真 的 没 有 了 ======</span></div>
         </div>
     </div>
 </template>
@@ -47,7 +48,7 @@
     import Quote from '@/components/quote'
     import {fetchFocus} from '../api'
     import {fetchList} from '../api/post'
-
+    import Utils from '../assets/js/utils'
     export default {
         name: 'Home',
         props: ['cate', 'words'],
@@ -56,7 +57,14 @@
                 features: [],
                 postList: [],
                 currPage: 1,
-                hasNextPage: false
+                hasNextPage: false,
+                listBlogQuery: {
+                  page: 1,
+                  size: 10,
+                  param: {
+                    title: undefined
+                  }
+                },
             }
         },
         components: {
@@ -81,7 +89,11 @@
                 return this.$store.getters.notice
             }
         },
-        methods: {
+      created() {
+        this.fetchList();
+      },
+      methods: {
+
             fetchFocus() {
                 fetchFocus().then(res => {
                     this.features = res.data || []
@@ -90,36 +102,30 @@
                 })
             },
             fetchList() {
-                fetchList().then(res => {
+                this.listBlogQuery.title = this.searchWords;
+                fetchList(this.listBlogQuery).then(res => {
                     this.postList = res.data.items || []
                     this.currPage = res.data.page
                     this.hasNextPage = res.data.hasNextPage
+                    //this.listBlogQuery.param.title = undefined
                 }).catch(err => {
                     console.log(err)
                 })
             },
             loadMore() {
-                fetchList({page:this.currPage+1}).then(res => {
-                    this.postList = this.postList.concat(res.data.items || [])
-                    this.currPage = res.data.page
-                    this.hasNextPage = res.data.hasNextPage
-                })
-            },
-            /*getPage() {
-              //alert(88888)
-              list().then((response) => {
-                const page = response.data;
-                alert(666);
-              }).catch(err => {
-                alert(444);
-                console.log(err)
-              });
-            }*/
+                this.listBlogQuery.size = this.listBlogQuery.size + 10;
+                this.fetchList();
+            }
         },
         mounted() {
             this.fetchFocus();
             this.fetchList();
-            //this.getPage();
+            var that = this;
+            Utils.$on('page', function (msg) {
+              //console.log(msg);
+              that.listBlogQuery.param.title = msg;
+              that.fetchList();
+            })
         }
     }
 </script>

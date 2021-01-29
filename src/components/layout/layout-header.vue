@@ -20,54 +20,153 @@
             </div>
             <div class="menu-item"><router-link to="/friend">友链</router-link></div>
             <div class="menu-item"><router-link to="/about">关于</router-link></div>
+          <div class="menu-item">
+            <span v-if="loginInfo.id">
+              <a href="javascript:void(0);" @click="dialogVisible = true">
+                <img
+                    :src="loginInfo.avatar"
+                    width="30"
+                    height="30"
+                    alt
+                    style="margin-top: 10px"
+                >
+              </a>
+            </span>
+            </div>
+
+          <el-dialog
+              title="用户信息"
+              :visible.sync="dialogVisible"
+              width="30%"
+              top="12vh"
+              center
+              :modal="false"
+              style="margin-left: 1200px;height: 800px;text-align: center"
+              align="center"
+          >
+            <div style="text-align: center">
+              <span><img :src="loginInfo.avatar"></span><br><br>
+              <span>昵称: {{ loginInfo.nickname }}</span><br><br>
+              <span>琴瑟在御，莫不静好</span><br><br>
+              <a href="javascript:void(0);">进入后台</a><br><br>
+              <a href="javascript:void(0);" @click="logout()">退出</a>
+            </div>
+
+          </el-dialog>
         </div>
     </div>
 </template>
 
 <script>
+    import Utils from '@/assets/js/utils'
+    import { getUrlKey } from '@/utils';
     import HeaderSearch from '@/components/header-search'
     import {fetchCategory} from '../../api'
+    import cookie from 'js-cookie'
+    import {getLoginInfo} from '@/api/login'
+    import { mapMutations  } from 'vuex'
     export default {
         name: "layout-header",
         components: {HeaderSearch},
         data() {
             return {
+              dialogVisible: false,
                 lastScrollTop: 0,
                 fixed: false,
                 hidden: false,
                 category: [],
-                mobileShow: false
+                mobileShow: false,
+              token: '',
+              loginInfo: {
+                id: '',
+                age: '',
+                avatar: '',
+                mobile: '',
+                nickname: '',
+                sex: ''
+              }
             }
         },
-        mounted(){
+      created() {
+        //this.token = this.$route.query.token
+        this.token = getUrlKey("token",window.location.href)
+        //alert(this.token)
+        // 将用户token保存到vuex中
+        if (this.token != null && this.token != '') {
+          this.changeLogin({ token: this.token})
+          this.$router.push('/admin/blogs')
+          if (this.token) {
+            this.wxLogin()
+          }
+        }
+        this.showInfo()
+      },
+      computed: {
+
+      },
+      mounted(){
             window.addEventListener('scroll', this.watchScroll)
             this.fetchCategory()
         },
         beforeDestroy () {
             window.removeEventListener("scroll", this.watchScroll)
         },
-        methods: {
-            watchScroll() {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-                if (scrollTop===0){
-                    this.fixed = false;
-                } else if (scrollTop>=this.lastScrollTop){
-                    this.fixed = false;
-                    this.hidden = true;
-                } else {
-                    this.fixed = true
-                    this.hidden = false
-                }
-                this.lastScrollTop = scrollTop
-            },
-            fetchCategory() {
-                fetchCategory().then(res => {
-                    this.category = res.data
-                }).catch(err => {
-                    console.log(err)
-                })
-            }
-        }
+      methods: {
+        ...mapMutations ([
+          'changeLogin'
+        ]),
+        getToken(){
+
+
+        },
+        showInfo() {
+          //debugger
+          var jsonStr = localStorage.getItem("ucenter");
+          if (jsonStr != null && jsonStr != '') {
+            this.loginInfo = JSON.parse(jsonStr)
+          }
+        },
+        logout() {
+          //debugger
+          localStorage.setItem('ucenter', null)
+          localStorage.setItem('token', null)
+          this.dialogVisible = false
+          //跳转页面
+          window.location.href = "/"
+        },
+        wxLogin() {
+          if (this.token == '' || null == this.token) return
+          //把token存在cookie中、也可以放在localStorage中
+          localStorage.setItem('token', this.token)
+          localStorage.setItem('ucenter', null)
+          //登录成功根据token获取用户信息
+          getLoginInfo().then(response => {
+            this.loginInfo = response.data
+            //将用户信息记录cookie
+            localStorage.setItem('ucenter', JSON.stringify(this.loginInfo))
+          })
+        },
+          watchScroll() {
+              let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+              if (scrollTop===0){
+                  this.fixed = false;
+              } else if (scrollTop>=this.lastScrollTop){
+                  this.fixed = false;
+                  this.hidden = true;
+              } else {
+                  this.fixed = true
+                  this.hidden = false
+              }
+              this.lastScrollTop = scrollTop
+          },
+          fetchCategory() {
+              fetchCategory().then(res => {
+                  this.category = res.data
+              }).catch(err => {
+                  console.log(err)
+              })
+          }
+      }
     }
 </script>
 

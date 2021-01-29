@@ -11,7 +11,8 @@ const state = {
     loading: false,
     runTimeInterval: '',
     socials: '',
-    websiteInfo: ''
+    websiteInfo: '',
+    token: localStorage.getItem('token') ? localStorage.getItem('token') : ''
 }
 const mutations = {
     SET_LOADING: (state, v) => {
@@ -30,6 +31,11 @@ const mutations = {
                 state.runTimeInterval = getTimeInterval(runAt);
             }, 1000);
         }
+    },
+    // 修改token，并将token存入localStorage
+    changeLogin (state, token) {
+        state.token = token;
+        localStorage.setItem('token', token);
     }
 }
 const actions = {
