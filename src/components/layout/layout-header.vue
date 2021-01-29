@@ -63,7 +63,7 @@
     import HeaderSearch from '@/components/header-search'
     import {fetchCategory} from '../../api'
     import cookie from 'js-cookie'
-    import {getLoginInfo} from '@/api/login'
+    import {getLoginInfo, logout} from '@/api/login'
     import { mapMutations  } from 'vuex'
     export default {
         name: "layout-header",
@@ -94,6 +94,7 @@
         // 将用户token保存到vuex中
         if (this.token != null && this.token != '') {
           this.changeLogin({ token: this.token})
+
           this.$router.push('/admin/blogs')
           if (this.token) {
             this.wxLogin()
@@ -115,10 +116,6 @@
         ...mapMutations ([
           'changeLogin'
         ]),
-        getToken(){
-
-
-        },
         showInfo() {
           //debugger
           var jsonStr = localStorage.getItem("ucenter");
@@ -128,11 +125,21 @@
         },
         logout() {
           //debugger
-          localStorage.setItem('ucenter', null)
-          localStorage.setItem('token', null)
-          this.dialogVisible = false
-          //跳转页面
-          window.location.href = "/"
+          //删除后台token
+          logout().then(res => {
+            if (res.success){
+              return new Promise(resolve => {
+                localStorage.removeItem('ucenter')
+                localStorage.removeItem('token')
+                this.dialogVisible = false
+                this.loginInfo.id = undefined
+                resolve();
+                //跳转页面
+                this.$router.push('/')
+              });
+            }
+          })
+
         },
         wxLogin() {
           if (this.token == '' || null == this.token) return

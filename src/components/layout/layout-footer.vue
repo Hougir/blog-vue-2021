@@ -12,7 +12,7 @@
             </div>
             <div class="footer-item">
                 <div>本站已苟活 {{runTimeInterval}}</div>
-                <div><a class="out-link" href="javascript:void(0)" @click="dialogVisible = true">☞后台管理</a></div>
+                <div><a class="out-link" href="javascript:void(0)" @click="toAdmin">☞后台管理</a></div>
             </div>
 
           <el-dialog
@@ -105,6 +105,14 @@
                     this.socials = data
                 })
             },
+          toAdmin() {
+            var token = localStorage.getItem('token')
+            if (token) {
+              this.$router.push('/admin/blogs')
+            }else {
+              this.dialogVisible = true
+            }
+          },
           getIdentifyCode() {
             this.countDown()
             this.isShowGetCode = false

@@ -6,3 +6,10 @@ export function getLoginInfo() {
         method: 'get'
     })
 }
+
+export function logout() {
+    return request({
+        url: apiUrl + `/admin/user/logout`,
+        method: 'get'
+    })
+}
