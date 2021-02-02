@@ -13,3 +13,15 @@ export function logout() {
         method: 'get'
     })
 }
+
+export function login(username,password,smsCode) {
+    return request({
+        url: apiUrl + `/admin/user/login`,
+        method: 'post',
+        data: {
+            username: username,
+            password: password,
+            smsCode: smsCode
+        }
+    })
+}

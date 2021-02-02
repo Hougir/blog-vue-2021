@@ -2,13 +2,13 @@ import request from '@/utils/request'
 
 const mockUrl = '/mock';
 
-export function fetchFocus() {
+/*export function fetchFocus() {
     return request({
         url: mockUrl+'/focus/list',
         method: 'get',
         params: {}
     })
-}
+}*/
 
 export function fetchCategory() {
     return request({

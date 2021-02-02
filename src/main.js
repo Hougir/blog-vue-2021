@@ -14,6 +14,10 @@ import Element from 'element-ui';
 Vue.use(Element, { size: 'small', zIndex: 3000 });
 Vue.config.productionTip = false
 Vue.filter('parseTime', (v) => parseTime(v,'{y}-{m}-{d}'))
+import dispatchEventStroage from '@/utils/tools'
+Vue.use(dispatchEventStroage)
+// 为了解决setItemEvent不立即生效，使用事件派发强制更高
+
 new Vue({
   router,
   store,

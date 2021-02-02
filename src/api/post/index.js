@@ -7,3 +7,11 @@ export function fetchList(data) {
         data
     })
 }
+
+export function fetchFocus() {
+    return request({
+        url: apiUrl+'/focus/list',
+        method: 'get',
+        params: {}
+    })
+}

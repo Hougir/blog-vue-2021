@@ -49,10 +49,16 @@ export const constantRoutes = [
         meta: { title: '文章'}
     },
     {
+        path: '/admin/empty',
+        name: 'empty',
+        component: () => import('@/views/admin/empty'),
+        meta: { title: '博客列表',requireAuth: true}
+    },
+    {
         path: '/admin/blogs',
         name: 'blogs',
         component: () => import('@/views/admin/blogs'),
-        meta: { title: '博客列表',requireAuth: false}
+        meta: { title: '博客列表',requireAuth: true}
     }
 ]
 const createRouter = () => new VueRouter({
@@ -74,7 +80,7 @@ router.beforeEach((to, from, next) => {
         } else {
             localStorage.removeItem('token')
             next({
-                path: "/login",
+                path: "/",
                 query: {
                     redirect: to.fullPath
                 } // 将刚刚要去的路由path（却无权限）作为参数，方便登录成功后直接跳转到该路由

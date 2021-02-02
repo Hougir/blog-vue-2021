@@ -34,7 +34,7 @@
             <div class="more" v-show="hasNextPage">
                 <div class="more-btn" @click="loadMore">More</div>
             </div>
-          <div align="center"><span v-if="!hasNextPage" style="text-align: center;color: #333333">====== 真 的 没 有 了 ======</span></div>
+          <div align="center"><span v-if="!hasNextPage" style="text-align: center;">--- 爷也是有底线的 ---</span></div>
         </div>
     </div>
 </template>
@@ -46,14 +46,14 @@
     import Post from '@/components/post'
     import SmallIco from '@/components/small-ico'
     import Quote from '@/components/quote'
-    import {fetchFocus} from '../api'
-    import {fetchList} from '../api/post'
+    import {fetchList, fetchFocus} from '@/api/post'
     import Utils from '../assets/js/utils'
     export default {
         name: 'Home',
         props: ['cate', 'words'],
         data() {
             return {
+
                 features: [],
                 postList: [],
                 currPage: 1,

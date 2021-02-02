@@ -2,7 +2,7 @@
     <div class="feature">
         <router-link :to="`/article/${data.id}`">
             <div class="feature-title"><span class="foverlay">{{data.title}}</span></div>
-            <img :src="data.img">
+            <img :src="data.banner">
         </router-link>
     </div>
 </template>

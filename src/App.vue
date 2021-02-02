@@ -4,6 +4,7 @@
         <layout-header></layout-header>
         <layout-body></layout-body>
         <layout-footer></layout-footer>
+
     </div>
 </template>
 <script>
@@ -11,6 +12,7 @@
     import layoutBody from '@/components/layout/layout-body'
     import layoutFooter from '@/components/layout/layout-footer'
     import Loading from '@/components/loading'
+
     export default {
         name: "app",
         components: {

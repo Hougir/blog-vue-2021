@@ -48,8 +48,8 @@
               <span><img :src="loginInfo.avatar"></span><br><br>
               <span>昵称: {{ loginInfo.nickname }}</span><br><br>
               <span>琴瑟在御，莫不静好</span><br><br>
-              <a href="javascript:void(0);">进入后台</a><br><br>
-              <a href="javascript:void(0);" @click="logout()">退出</a>
+              <a href="javascript:void(0)" @click="toAdmin">进入后台</a><br><br>
+              <a href="javascript:void(0);" @click="logout">退出</a>
             </div>
 
           </el-dialog>
@@ -88,19 +88,12 @@
             }
         },
       created() {
-        //this.token = this.$route.query.token
-        this.token = getUrlKey("token",window.location.href)
-        //alert(this.token)
-        // 将用户token保存到vuex中
-        if (this.token != null && this.token != '') {
-          this.changeLogin({ token: this.token})
-
-          this.$router.push('/admin/blogs')
-          if (this.token) {
-            this.wxLogin()
-          }
-        }
+       // this.$router.go(0)
+        this.getToken()
         this.showInfo()
+      },
+      activated(){
+        location.reload()
       },
       computed: {
 
@@ -111,11 +104,29 @@
         },
         beforeDestroy () {
             window.removeEventListener("scroll", this.watchScroll)
+
         },
+
       methods: {
         ...mapMutations ([
           'changeLogin'
         ]),
+        getToken() {
+          //this.token = this.$route.query.token
+          // location.reload()
+
+          this.token = localStorage.getItem('token');
+          if (!this.token) {
+            var wx_token = getUrlKey("token",window.location.href)
+            if (wx_token) {
+              this.changeLogin({ token: this.token})
+              this.$router.push('/admin/empty')
+              this.wxLogin()
+              return
+            }
+          }
+          this.wxLogin()
+        },
         showInfo() {
           //debugger
           var jsonStr = localStorage.getItem("ucenter");
@@ -123,35 +134,53 @@
             this.loginInfo = JSON.parse(jsonStr)
           }
         },
-        logout() {
+        /*logout() {
           //debugger
           //删除后台token
           logout().then(res => {
-            if (res.success){
-              return new Promise(resolve => {
-                localStorage.removeItem('ucenter')
-                localStorage.removeItem('token')
-                this.dialogVisible = false
-                this.loginInfo.id = undefined
-                resolve();
-                //跳转页面
-                this.$router.push('/')
-              });
-            }
+            return new Promise(resolve => {
+              localStorage.removeItem('ucenter')
+              localStorage.removeItem('token')
+              this.dialogVisible = false
+              this.loginInfo.id = undefined
+              //this.$route.query.token = ""
+              //resolve();
+              //跳转页面
+              //this.$router.push('/')
+            });
           })
+        },*/
+        logout() {
+          return new Promise((resolve, reject) => {
+            localStorage.removeItem('ucenter')
+            localStorage.removeItem('token')
+            this.dialogVisible = false
+            resolve();
+            this.$router.push('/')
+            location.reload()
+            //this.reload()
+            /*logout().then(response => {
+              const data = response.data;
+              if(data){
 
+              }
+            }).catch(error => {
+              reject(error);
+            });*/
+          });
         },
+
         wxLogin() {
-          if (this.token == '' || null == this.token) return
-          //把token存在cookie中、也可以放在localStorage中
-          localStorage.setItem('token', this.token)
-          localStorage.setItem('ucenter', null)
           //登录成功根据token获取用户信息
           getLoginInfo().then(response => {
             this.loginInfo = response.data
             //将用户信息记录cookie
             localStorage.setItem('ucenter', JSON.stringify(this.loginInfo))
           })
+        },
+        toAdmin(){
+          this.dialogVisible = false
+          this.$router.push('/admin/blogs')
         },
           watchScroll() {
               let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop

@@ -10,7 +10,7 @@ export default [
                     {
                         id: 1,
                         title: 'Akina',
-                        img: 'https://s1.ax1x.com/2020/05/14/YDfRnU.jpg'
+                        img: 'https://s1.ax1x.com/2020/05/14/YDhagx.jpg'
                     },
                     {
                         id: 2,
@@ -21,7 +21,18 @@ export default [
                         id: 3,
                         title: '文章归档',
                         img: 'https://s1.ax1x.com/2020/05/14/YDfT91.jpg'
+                    },
+                    {
+                        id: 4,
+                        title: '文章归档2',
+                        img: 'https://s1.ax1x.com/2020/05/14/YDhagx.jpg'
+                    },
+                    {
+                        id: 5,
+                        title: '文章归档2',
+                        img: 'https://s1.ax1x.com/2020/05/14/YDfT91.jpg'
                     }
+
                 ]
             }
         }

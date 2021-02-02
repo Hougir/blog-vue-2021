@@ -35,7 +35,7 @@
                   <span v-else class="identiCode cancel-pointer">{{countdown }}s后可重试</span>
                 </el-form-item>
               </el-form>
-              <el-button style="margin-left: 20%;margin-top: 10%" type="success"> 登 录 </el-button>
+              <el-button style="margin-left: 20%;margin-top: 10%" type="success" @click="login" @keyup.enter.native="login"> 登 录 </el-button>
               <el-button style="margin-left: 20%;" type="info" @click="dialogVisible2 = true"> 微 信 </el-button>
 
               <el-dialog
@@ -72,6 +72,8 @@
 <script>
     import sectionTitle from '@/components/section-title'
     import wxlogin from 'vue-wxlogin'
+    import {login} from '@/api/login'
+    import { mapMutations  } from 'vuex'
     export default {
         name: "layout-footer",
         data(){
@@ -96,10 +98,34 @@
         },
         computed:{
             runTimeInterval() {
-                return this.$store.state.runTimeInterval;
+                return this.$store.state.runTimeInterval
             }
         },
         methods:{
+          ...mapMutations ([
+            'changeLogin'
+          ]),
+          login() {
+            login(this.form.username,this.form.password,this.form.smsCode).then(res =>{
+              if (res.code == 20000 && res.data != null) {
+                this.$message({
+                  showClose: true,
+                  message: '恭喜登录成功',
+                  type: 'success'
+                });
+                localStorage.setItem('token',res.data)
+                this.dialogVisible = false
+                location.reload()
+                this.$router.push('/admin/empty')
+              }
+            }).catch(err => {
+              this.$message({
+                showClose: true,
+                message: err,
+                type: 'warning'
+              });
+            })
+          },
             getSocial(){
                 this.$store.dispatch('getSocials').then(data =>{
                     this.socials = data
@@ -108,7 +134,7 @@
           toAdmin() {
             var token = localStorage.getItem('token')
             if (token) {
-              this.$router.push('/admin/blogs')
+              this.$router.push('/admin/empty')
             }else {
               this.dialogVisible = true
             }
