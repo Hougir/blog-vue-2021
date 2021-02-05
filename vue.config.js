@@ -8,7 +8,8 @@ module.exports = {
 // 假如访问的是8080下面的api下面的XXXXX,就需要把api当做静态路径加进去
 
     publicPath: './',
-
+    outputDir: 'dist',
+    assetsDir: 'assets',
 
 // 最核心的devServer。在webpack里基本默认配置devServer
 
@@ -74,6 +75,19 @@ module.exports = {
 
         }
 
+    },
+    // 第三方插件配置
+    pluginOptions: {
+        // ...
+        pwa: {
+            iconPaths: {
+                favicon32: './favicon.ico',
+                favicon16: './favicon.ico',
+                appleTouchIcon: './favicon.ico',
+                maskIcon: './favicon.ico',
+                msTileImage: './favicon.ico'
+            }
+        },
     }
 
-}
+    }

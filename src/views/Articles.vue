@@ -84,7 +84,7 @@
                     </section-title>
 
                   <div class="breadcrumbs">
-                    <div id="crumbs">最后更新时间：{{blog.updateTime | parseTime}}</div>
+                    <div id="crumbs">最后更新时间：{{blog.pubTime}}</div>
                   </div>
                     <!--声明-->
                     <div class="open-message">
