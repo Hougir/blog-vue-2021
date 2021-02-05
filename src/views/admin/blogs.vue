@@ -2,6 +2,11 @@
   <div align="center" style="text-align: center;margin-top: 200px;margin-left: 30px">
     <div style="float: left;margin-left: 100px">
       <el-button type="primary" icon="el-icon-circle-plus" @click="addBlogBtn">新增</el-button>
+      &nbsp;
+      <el-badge :value="newCommentCount" class="item">
+        <el-button size="small" icon="el-icon-chat-dot-round" @click="commentBtn">留言</el-button>
+      </el-badge>
+
     </div>
     <el-table
         :data="list.filter(data => !list.title || data.title.toLowerCase().includes(list.title.toLowerCase()))"
@@ -70,7 +75,7 @@
       </el-pagination>
     </div>
     <el-dialog
-        title="博客编辑"
+        :title="dialogVisibleTitle"
         :visible.sync="dialogVisible"
         width="80%"
         top="10vh"
@@ -129,11 +134,73 @@
       </div>
 
     </el-dialog>
+
+    <el-dialog
+        title="留言处理"
+        :visible.sync="commentDialogVisible"
+        width="60%"
+        top="20vh"
+        style="height: 900px">
+      <div class="site-content animate">
+        <main class="site-main">
+          <div style="margin-top: -70px;margin-left: -950px">
+            <el-badge :value="newCommentCount" class="item" type="primary">
+              <el-button size="small" @click="getUnreadComment">未读</el-button>
+            </el-badge>
+          </div>
+          <el-table
+              :data="commentDatas"
+              style="width: 100%"
+              :row-class-name="tableRowClassName">
+            <el-table-column
+                prop="createTime"
+                label="日期"
+                width="180" align="center" >
+              <template slot-scope="scope">
+                <span>{{scope.row.createTime}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="email"
+                label="邮箱"
+                width="180" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.email}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="content"
+                label="内容" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.content}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+                label="操作" align="center" width="80">
+              <template slot-scope="scope">
+                <el-button v-if="scope.row.unread" size="mini" @click="haveRead(scope.row.id)">已读</el-button>
+                <el-button v-else size="mini" type="danger" @click="delCommentById(scope.row.id)">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <br>
+          <div v-show="!listLoading">
+            <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="commentTotal"
+                @current-change="handleCurrentChange2">
+            </el-pagination>
+          </div>
+        </main>
+      </div>
+
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import {fetchList} from '@/api/post'
+import {fetchList, commentList, haveRead, delCommentById} from '@/api/post'
 import {getBlogById, save, delById} from '@/api/Articles'
 import {fetchComment} from "@/api";
 export default {
@@ -142,9 +209,9 @@ export default {
     return{
       listLoading: false,
       total: null,
-      list: {
+      list: [{
         title: ''
-       },
+      }],
       listBlogQuery: {
         page: 1,
         size: 10,
@@ -153,6 +220,18 @@ export default {
         }
       },
       dialogVisible: false,
+      dialogVisibleTitle: '博客编辑',
+      commentDialogVisible: false,
+      newCommentCount: undefined,
+      commentTotal: undefined,
+      listCommentQuery: {
+        page: 1,
+        size: 10,
+        param: {
+          unread: undefined
+        }
+      },
+      commentDatas: [],
       content: null,
       title: undefined,
       banner: undefined,
@@ -224,8 +303,13 @@ export default {
       this.listBlogQuery.page = val;
       this.getPage();
     },
+    handleCurrentChange2(val) {
+      this.listCommentQuery.page = val;
+      this.commentList();
+    },
     handleEdit(index, row) {
       this.getBlogById(row.id);
+      this.dialogVisibleTitle = "博客编辑"
       this.dialogVisible = true
     },
     handleDelete(index, row) {
@@ -297,6 +381,7 @@ export default {
       this.isTop = false
       this.isHot = false
       this.published = false
+      this.dialogVisibleTitle = "博客新增"
       this.dialogVisible=true
     },
     reset() {
@@ -308,6 +393,56 @@ export default {
       this.isHot =undefined
       this.published =undefined
       this.summary =undefined
+    },
+    commentBtn(){
+      this.commentDialogVisible = true
+      this.commentList()
+    },
+
+    tableRowClassName({row, rowIndex}) {
+      if (row.unread == true) {
+        return 'warning-row';
+      } else {
+        return 'success-row';
+      }
+      return '';
+    },
+    commentList(){
+      this.listCommentQuery.param.unread = undefined
+      commentList(this.listCommentQuery).then(res =>{
+        this.commentDatas = res.data.items
+        this.commentTotal = res.data.total
+      })
+    },
+    getNewComments(){
+      this.listCommentQuery.param.unread = true
+      commentList(this.listCommentQuery).then(res =>{
+        this.newCommentCount = res.data.total
+      })
+    },
+    getUnreadComment(){
+      this.listCommentQuery.param.unread = true
+      commentList(this.listCommentQuery).then(res =>{
+        this.commentDatas = res.data.items
+        this.commentTotal = res.data.total
+      })
+    },
+    haveRead(id){
+      haveRead(id).then(res =>{
+        this.$message({ showClose: true,     message: "成功",  type: 'success'   });
+        this.newCommentCount--
+        this.commentList()
+      }).catch(error =>{
+        this.$message({ showClose: true,     message: error,  type: 'error'   });
+      })
+    },
+    delCommentById(id){
+      delCommentById(id).then(res =>{
+        this.$message({ showClose: true,     message: "删除成功",  type: 'success'   });
+        this.commentList()
+      }).catch(error =>{
+        this.$message({ showClose: true,     message: error,  type: 'error'   });
+      })
     }
   },
   mounted(){
@@ -315,9 +450,16 @@ export default {
   },
   created() {
     this.getPage()
+    this.getNewComments()
   }
 }
 </script>
-<style scoped lang="less">
+<style lang="less">
+.el-table .warning-row {
+  background: #b5e7d1;
+}
 
+.el-table .success-row {
+  background: #2fb4a9;
+}
 </style>

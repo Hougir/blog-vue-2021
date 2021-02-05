@@ -19,7 +19,7 @@ service.interceptors.request.use(
         //     config.headers['X-Token'] = getToken()
         // }
         if (localStorage.getItem('token')) {
-            config.headers.token = localStorage.getItem('token');
+            config.headers['token'] = localStorage.getItem('token');
         }
         /*if (cookie.get('token')) {
             config.headers['token'] = cookie.get('token');

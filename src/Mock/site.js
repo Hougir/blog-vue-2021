@@ -10,10 +10,10 @@ export default [
                 data: {
                     avatar: 'https://s2.ax1x.com/2020/01/17/1SCadg.png',
                     slogan: 'Think like a man of action, act like a man of thought.',
-                    name: 'LZ′blog',
-                    domain: 'https://www.fengziy.cn',
+                    name: '浩然剑',
+                    domain: 'https://www.yellowhao.top',
                     notice: '语言少一点，思想多一些。要像行动者那样思考，要像思考者那样行动。—亨利·柏格森',
-                    desc: '一个It技术的探索者'
+                    desc: '一枚It技术的小学生'
                 }
             }
         }
@@ -38,21 +38,21 @@ export default [
                         title: 'Gitee',
                         icon: 'icongitee',
                         color: '#d81e06',
-                        href: 'https://gitee.com/fengziy'
+                        href: 'https://gitee.com/huanghao1204'
                     },
                     {
                         id: 3,
                         title: 'GitHub',
                         icon: 'icongithub',
                         color: '',
-                        href: 'https://github.com/yellowhao1204'
+                        href: 'https://github.com/yellowhao1204/blog-vue-2021'
                     },
                     {
                         id: 4,
                         title: 'CSDN',
                         icon: 'iconcsdn',
                         color: 'red',
-                        href: 'https://blog.csdn.net/feng_zi_ye'
+                        href: 'https://blog.csdn.net/weixin_48680847'
                     }
                 ]
             }

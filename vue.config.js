@@ -1,4 +1,5 @@
 // 这就是common.js规范，amd：record.js，cmd：c.js
+var path = require('path')
 module.exports = {
 //webpack,nodejs的server，静态目录路径。可以指定一个publicPath:'/static',
 
@@ -6,7 +7,8 @@ module.exports = {
 
 // 假如访问的是8080下面的api下面的XXXXX,就需要把api当做静态路径加进去
 
-    publicPath:'',
+    publicPath: './',
+
 
 // 最核心的devServer。在webpack里基本默认配置devServer
 
@@ -20,7 +22,7 @@ module.exports = {
 
 // 端口
 
-        port:8888,
+        port:80,
 
 // 代理：因为后面需要使用接口,需要使用代理。
 
@@ -40,7 +42,7 @@ module.exports = {
 
 // 请求的是/mock这个路径，会代理到target后面的这个路径上去。
 
-                target:'localhost:8888',
+                target:'http://localhost:80',
 
 // 是否需要开启websoket，否。
 

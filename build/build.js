@@ -6,7 +6,7 @@ var rm = require('rimraf')
 var path = require('path')
 var chalk = require('chalk')
 var webpack = require('webpack');
-var config = require('../config');
+var config = require('vue.config.js');
 var webpackConfig = require('./webpack.site.conf');
 
 process.env.NODE_ENV = !!process.env.NODE_ENV ? process.env.NODE_ENV : "test";
@@ -31,11 +31,11 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
         console.log(chalk.cyan('  Build complete.\n'))
         if(process.env.npm_config_preview){
             server.start({
-                port: 9528,
+                port: 80,
                 directory: './dist',
                 file: '/index.html'
             });
-            console.log('> Listening at ' +  'http://localhost:9528' + '\n')
+            console.log('> Listening at ' +  'http://localhost:80' + '\n')
         }
     })
 })

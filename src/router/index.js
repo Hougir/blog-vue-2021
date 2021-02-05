@@ -52,13 +52,19 @@ export const constantRoutes = [
         path: '/admin/empty',
         name: 'empty',
         component: () => import('@/views/admin/empty'),
-        meta: { title: '博客列表',requireAuth: true}
+        meta: { title: '博客列表'}
     },
     {
         path: '/admin/blogs',
         name: 'blogs',
         component: () => import('@/views/admin/blogs'),
         meta: { title: '博客列表',requireAuth: true}
+    },
+    {
+        path: '/admin/wx/:token',
+        name: 'wx',
+        component: () => import('@/views/admin/wx'),
+        meta: { title: '微信登录',params: 'token'}
     }
 ]
 const createRouter = () => new VueRouter({

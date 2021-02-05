@@ -4,8 +4,6 @@
 </p>
 <p align="center">
   <a href="https://github.com/yellowhao1204/blog-vue-2021.git">
-    <img src="https://gitee.com/fengziy/Gblog/badge/star.svg?theme=white" alt="star"/>
-    <img src="https://gitee.com/fengziy/Gblog/badge/fork.svg" alt="fork"/>
   </a>
   <a href="https://github.com/yellowhao1204/blog-vue-2021.git">
       <img src="https://img.shields.io/github/stars/fengziye/Gblog.svg?style=social" alt="Github star"/>
@@ -17,13 +15,10 @@
   <a href="https://github.com/fengziye/Gblog/blob/master/license">
     <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license"/>
   </a>
-  <a href="https://github.com/fengziye/Gblog/releases">
-      <img src="https://img.shields.io/github/release/fengziye/Gblog.svg" alt="GitHub release">
-  </a>
+  
 </p>
 
-仓库：[码云](https://gitee.com/fengziy/Gblog) | [github](https://github.com/fengziye/Gblog)  
-[预览demo](http://static.fengziy.cn/Gblog/)
+仓库：[码云](https://gitee.com/huanghao1204) | [github](https://github.com/yellowhao1204/blog-vue-2021)  
 ### 介绍
 >
 > 一款nice的基于 vue 的博客模板。
@@ -69,13 +64,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### 打赏作者
 
 <p align="center" id="donate">
-  <img width="120" src="https://images.gitee.com/uploads/images/2020/0618/095618_60414df6_1658323.jpeg">
-  <img width="120" src="https://images.gitee.com/uploads/images/2020/0618/095618_72307c44_1658323.png">
+  <img width="120" src="https://mybucket-2020-7-21.oss-cn-beijing.aliyuncs.com/blog/pay_baby.jpg">
+  <img width="120" src="https://mybucket-2020-7-21.oss-cn-beijing.aliyuncs.com/blog/pay_wechat.jpg">
 </p>
 
-
-#### User case（欢迎大家提供使用案例）
-
-- [罗夏的个人博客](http://roroschach.club/#/)
-- [黎先森的博客](https://www.lesslesson.com/)
-- [meng的博客](http://www.lqmblog.com/)

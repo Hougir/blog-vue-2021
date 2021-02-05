@@ -12,12 +12,12 @@
         <div class="site-menus" :class="{'mobileShow':mobileShow}" @click.stop="mobileShow=!mobileShow">
             <div class="menu-item header-search"><header-search/></div>
             <div class="menu-item"><router-link to="/">首页</router-link></div>
-            <div class="menu-item hasChild">
+<!--            <div class="menu-item hasChild">
                 <a href="#">文章</a>
                 <div class="childMenu" v-if="category.length">
                     <div class="sub-menu" v-for="item in category" :key="item.title"><router-link :to="`/category/${item.title}`">{{item.title}}</router-link></div>
                 </div>
-            </div>
+            </div>-->
             <div class="menu-item"><router-link to="/friend">友链</router-link></div>
             <div class="menu-item"><router-link to="/about">关于</router-link></div>
           <div class="menu-item">
@@ -32,6 +32,7 @@
                 >
               </a>
             </span>
+            <span v-else><a href="javascript:void(0);" @click="reload">刷一下</a></span>
             </div>
 
           <el-dialog
@@ -111,12 +112,15 @@
         ...mapMutations ([
           'changeLogin'
         ]),
+        reload() {
+          location.reload()
+        },
         getToken() {
           //this.token = this.$route.query.token
           // location.reload()
 
           this.token = localStorage.getItem('token');
-          if (!this.token) {
+          /*if (!this.token) {
             var wx_token = getUrlKey("token",window.location.href)
             if (wx_token) {
               this.changeLogin({ token: this.token})
@@ -124,7 +128,7 @@
               this.wxLogin()
               return
             }
-          }
+          }*/
           this.wxLogin()
         },
         showInfo() {
@@ -151,31 +155,49 @@
           })
         },*/
         logout() {
-          return new Promise((resolve, reject) => {
-            localStorage.removeItem('ucenter')
-            localStorage.removeItem('token')
-            this.dialogVisible = false
+          logout(this.token).then(response => {
+            return new Promise((resolve, reject) => {
+              localStorage.setItem('token','')
+              localStorage.removeItem('ucenter')
+              this.dialogVisible = false
+              this.$router.push('/')
+              location.reload()
+            });
             resolve();
-            this.$router.push('/')
-            location.reload()
-            //this.reload()
-            /*logout().then(response => {
-              const data = response.data;
-              if(data){
+          }).catch(error => {
 
-              }
-            }).catch(error => {
-              reject(error);
-            });*/
           });
+
         },
 
         wxLogin() {
           //登录成功根据token获取用户信息
-          getLoginInfo().then(response => {
+          var token = localStorage.getItem('token')
+          if (!token) {
+            /*this.$message({
+              showClose: true,
+              message: "请登录",
+              type: 'warning'
+            });*/
+            return
+          }
+          getLoginInfo(token).then(response => {
+            if (response.code == 403){
+              localStorage.removeItem('token')
+              localStorage.removeItem('ucenter')
+              this.$router.push("/")
+              this.$message({
+                showClose: true,
+                message: response.message,
+                type: 'warning'
+              });
+            }
             this.loginInfo = response.data
             //将用户信息记录cookie
             localStorage.setItem('ucenter', JSON.stringify(this.loginInfo))
+          }).catch(error =>{
+            console.log(error)
+
           })
         },
         toAdmin(){

@@ -71,8 +71,8 @@
                             <div class="donate" @click="showDonate=!showDonate">
                                 <span>赏</span>
                                 <ul class="donate_inner" :class="{'show':showDonate}">
-                                    <li class="wedonate"><img src="http://cdn.fengziy.cn/gblog/wexin_pay.png"><p>微信</p></li>
-                                    <li class="alidonate"><img src="http://cdn.fengziy.cn/gblog/ali_pay.jpg"><p>支付宝</p></li>
+                                    <li class="wedonate"><img src="@/assets/img/pay_wechat.jpg"><p>微信</p></li>
+                                    <li class="alidonate"><img src="@/assets/img/pay_baby.jpg"><p>支付宝</p></li>
                                 </ul>
                             </div>
                             <!-- 文章标签 -->
@@ -84,7 +84,7 @@
                     </section-title>
 
                   <div class="breadcrumbs">
-                    <div id="crumbs">最后更新时间：{{blog.updateTime}}</div>
+                    <div id="crumbs">最后更新时间：{{blog.updateTime | parseTime}}</div>
                   </div>
                     <!--声明-->
                     <div class="open-message">
@@ -120,7 +120,7 @@
               showDonate: false,
               comments: [],
               menus: [],
-            blog: null
+            blog: {}
           }
         },
         components: {

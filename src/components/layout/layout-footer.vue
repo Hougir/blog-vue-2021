@@ -8,7 +8,7 @@
                 <div style="font-size:17px;font-weight: bold;">资源</div>
                 <div><a target="_blank" class="out-link" href="https://segmentfault.com/weekly?utm_source=sf-footer">每周精选</a></div>
                 <div><a target="_blank" class="out-link" href="https://www.jmjc.tech/">简明教程</a></div>
-                <div><a target="_blank" class="out-link" href="https://www.liaoxuefeng.com/">sdssa的官方网站</a></div>
+                <div><a target="_blank" class="out-link" href="https://www.zbw99.com/class/basketball/">球赛直播</a></div>
             </div>
             <div class="footer-item">
                 <div>本站已苟活 {{runTimeInterval}}</div>
@@ -17,6 +17,7 @@
 
           <el-dialog
               title="后台登录"
+              center
               :visible.sync="dialogVisible"
               width="40%"
               top="20vh"
@@ -29,14 +30,17 @@
                 <el-form-item label="密码">
                   <el-input prefix-icon="el-icon-lock" show-password v-model="form.password" clearable></el-input>
                 </el-form-item>
+                <el-form-item label="手机号">
+                  <el-input prefix-icon="el-icon-phone" type="text" v-model="form.phone" clearable></el-input>
+                </el-form-item>
                 <el-form-item label="手机验证码">
                   <el-input style="width:398px;" prefix-icon="el-icon-message" v-model="form.smsCode" clearable></el-input>
                   &nbsp;&nbsp;&nbsp;<span v-if="isShowGetCode" class="identiCode" @click="getIdentifyCode">获取验证码</span>
                   <span v-else class="identiCode cancel-pointer">{{countdown }}s后可重试</span>
                 </el-form-item>
               </el-form>
-              <el-button style="margin-left: 20%;margin-top: 10%" type="success" @click="login" @keyup.enter.native="login"> 登 录 </el-button>
-              <el-button style="margin-left: 20%;" type="info" @click="dialogVisible2 = true"> 微 信 </el-button>
+              <el-button align="center" style="margin-top: 2%;text-align: center;width: 100%" type="success" @click="login" @keyup.enter.native="login"> 登 录 </el-button>
+              <br><br><a href="javascript:void(0);" @click="dialogVisible2 = true" style="margin-left: 47%"><img src="@/assets/img/wx.jpg" width="30" height="30"></a>
 
               <el-dialog
                   title="微信扫码登录"
@@ -58,21 +62,21 @@
                       :href="'data:text/css;base64,LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDIwMHB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7d2lkdGg6IDIwMHB4O30NCi5zdGF0dXNfaWNvbiB7ZGlzcGxheTogbm9uZX0NCi5pbXBvd2VyQm94IC5zdGF0dXMge3RleHQtYWxpZ246IGNlbnRlcjt9'"
                       rel="external nofollow">
                   </wxlogin>
-                  <el-button type="primary" @click="dialogVisible = false">账号密码登录</el-button>
+                  <el-button type="primary" @click="dialogVisible2 = false">账号密码登录</el-button>
                 </div>
               </el-dialog>
             </div>
 
           </el-dialog>
         </div>
-        <div class="copyright">Copyright © 2021 by <a target="_blank" class="out-link" href="https://www.yellowhao.top">yellowhao.top</a> . All rights reserved. | <a target="_blank" class="out-link" href="http://www.beian.miit.gov.cn">渝ICP备17015355号-1</a></div>
+        <div class="copyright">Copyright © 2021 by <a target="_blank" class="out-link" href="https://www.yellowhao.top">yellowhao.top</a> . All rights reserved. | <a target="_blank" class="out-link" href="http://www.beian.miit.gov.cn">沪ICP备20210203号-1</a></div>
     </div>
 </template>
 
 <script>
     import sectionTitle from '@/components/section-title'
     import wxlogin from 'vue-wxlogin'
-    import {login} from '@/api/login'
+    import {login, sendSms} from '@/api/login'
     import { mapMutations  } from 'vuex'
     export default {
         name: "layout-footer",
@@ -85,6 +89,7 @@
               form: {
                 username: undefined,
                 password: undefined,
+                phone: undefined,
                 smsCode: undefined
               },
               countdown: 60,
@@ -106,7 +111,15 @@
             'changeLogin'
           ]),
           login() {
-            login(this.form.username,this.form.password,this.form.smsCode).then(res =>{
+            if (!this.checkParams()) {
+              this.$message({
+                showClose: true,
+                message: "请确认信息是否填写",
+                type: 'warning'
+              });
+              return
+            }
+            login(this.form.username,this.form.password,this.form.smsCode,this.form.phone).then(res =>{
               if (res.code == 20000 && res.data != null) {
                 this.$message({
                   showClose: true,
@@ -140,9 +153,32 @@
             }
           },
           getIdentifyCode() {
-            this.countDown()
-            this.isShowGetCode = false
-            alert("验证码为:666666")
+            if (!this.form.phone) {
+              this.$message({
+                showClose: true,
+                message: '请填写手机号码',
+                type: 'warning'
+              });
+              return
+            }
+            if (!/^1[1-9]\d{9}$/.test(this.form.phone)){
+              this.$message({
+                showClose: true,
+                message: '请填写合法的手机号码',
+                type: 'warning'
+              });
+              return
+            }
+            sendSms(this.form.phone).then(res =>{
+              this.countDown()
+              this.isShowGetCode = false
+              this.$message({
+                showClose: false,
+                message: res.message,
+                type: 'info'
+              });
+            })
+
           },
           countDown() {
             const self = this
@@ -154,6 +190,12 @@
                 self.isShowGetCode = true
               }
             }, 1000)
+          },
+          checkParams() {
+            if (!this.form.username || !this.form.password || !this.form.smsCode || !this.form.phone){
+              return false;
+            }
+            return true;
           }
         },
         created(){

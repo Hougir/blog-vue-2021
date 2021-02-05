@@ -7,7 +7,7 @@
                     <div class="info-card">
                         <p>偶然之间看见了<a target="_blank" class="out-link" href="https://zhebk.cn/Web/Akina.html">Akina For Typecho</a>博客的主题，风格很是喜欢。</p>
                         <p>然后就开始用Vue搭建这种风格的博客，在此呢也将这套模板开放给大家。</p>
-                        <p><a target="_blank" href="https://gitee.com/fengziy/Gblog" style="color: #ff6d6d;">Gitee仓库</a> | <a target="_blank" href="https://github.com/fengziye/Gblog" style="color: #ff6d6d;">Github仓库</a>记得star★哟</p>
+                        <p><a target="_blank" href="https://gitee.com/huanghao1204" style="color: #ff6d6d;">Gitee仓库</a> | <a target="_blank" href="https://github.com/yellowhao1204/blog-vue-2021" style="color: #ff6d6d;">Github仓库</a>记得star★哟</p>
                     </div>
                 </div>
                 <div class="about-me about-info">
@@ -16,15 +16,15 @@
                         <div class="contactForm">
                             <div class="form-item">
                                 <label for="mail">邮箱</label>
-                                <input class="v" type="email" name="mail" id="mail">
+                                <input v-model="email" class="v" type="email" id="mail">
                             </div>
                             <div class="form-item">
                                 <label for="content">内容</label>
-                                <textarea class="v" id="content" name="content"></textarea>
+                                <textarea v-model="content" class="v" id="content"></textarea>
                             </div>
                             <div class="form-item">
                                 <label></label>
-                                <button>提交</button>
+                                <button @click="commit">提交</button>
                             </div>
                         </div>
                     </div>
@@ -37,19 +37,51 @@
     import sectionTitle from '@/components/section-title'
     import {getTime,getTimeInterval} from '@/utils'
     // import Quote from "@/components/quote";
-    // import {fetchFriend} from '../api'
+     import {comment} from '@/api/post'
     export default {
         name: "About",
         data() {
             return {
-                list: []
+                list: [],
+              content,
+              email
             }
         },
         components: {
             // Quote,
             sectionTitle
         },
-        methods: {},
+        methods: {
+          commit(){
+            if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(this.email)) {
+              this.$message({
+                showClose: true,
+                message: "请输入合法邮箱",
+                type: 'warning'
+              });
+              return
+            }
+            if (!this.content) {
+              this.$message({
+                showClose: true,
+                message: "请输入内容",
+                type: 'warning'
+              });
+              return
+            }
+            comment(this.email,this.content).then(res =>{
+              if (res.code == 20000){
+                this.$message({
+                  showClose: true,
+                  message: "留言成功",
+                  type: 'success'
+                });
+                this.$router.push('/')
+              }
+            })
+
+          }
+        },
         mounted() {
         }
     }
