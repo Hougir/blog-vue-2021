@@ -235,9 +235,9 @@ export default {
       content: null,
       title: undefined,
       banner: undefined,
-      isTop: undefined,
-      isHot: undefined,
-      published: undefined,
+      isTop: false,
+      isHot: false,
+      published: false,
       summary: undefined,
       id: undefined,
       /*
@@ -339,8 +339,8 @@ export default {
           this.content = res.data.content
           this.title = res.data.title
           this.banner = res.data.banner
-          this.isTop = res.data.isTop
-          this.isHot = res.data.isHot
+          this.isTop = res.data.top
+          this.isHot = res.data.hot
           this.published = res.data.published
           this.summary = res.data.summary
           this.id = res.data.id
@@ -389,9 +389,9 @@ export default {
       this.id = undefined
       this.title = undefined
       this.banner =undefined
-      this.isTop =undefined
-      this.isHot =undefined
-      this.published =undefined
+      this.isTop =false
+      this.isHot =false
+      this.published =false
       this.summary =undefined
     },
     commentBtn(){
