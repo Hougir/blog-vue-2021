@@ -3,7 +3,7 @@
         <div class="site-logo">
             <router-link to="/">
                 <img src="@/assets/site-logo.svg" alt="">
-                <p class="site-name">blog-vue-2021</p>
+                <p class="site-name">浩然剑</p>
             </router-link>
         </div>
         <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
@@ -182,8 +182,8 @@
             return
           }
           getLoginInfo(token).then(response => {
-            if (response.code == 403){
-              localStorage.removeItem('token')
+            if (response.code == 403 || response.code == 500){
+              localStorage.setItem('token','')
               localStorage.removeItem('ucenter')
               this.$router.push("/")
               this.$message({
@@ -197,6 +197,16 @@
             localStorage.setItem('ucenter', JSON.stringify(this.loginInfo))
           }).catch(error =>{
             console.log(error)
+            if (error.response.status == 500){
+              localStorage.setItem('token','')
+              localStorage.removeItem('ucenter')
+              this.$router.push("/")
+              this.$message({
+                showClose: true,
+                message: "登录已过期",
+                type: 'warning'
+              });
+            }
 
           })
         },

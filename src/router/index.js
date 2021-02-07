@@ -97,7 +97,7 @@ router.beforeEach((to, from, next) => {
     }
 
 
-    let title = 'blog-vue-2021'
+    let title = '浩然剑'
     if (to.meta.params){
         title = `${to.meta.title}:${to.params[to.meta.params] || ''} - ${title}`
     }else {

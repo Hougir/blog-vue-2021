@@ -43,8 +43,8 @@
         data() {
             return {
                 list: [],
-              content,
-              email
+              content: undefined,
+              email: undefined
             }
         },
         components: {
