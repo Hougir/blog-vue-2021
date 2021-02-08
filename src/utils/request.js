@@ -77,8 +77,6 @@ service.interceptors.response.use(
                     break
                 case 500:
                     error.response.data.error = '500:服务器内部错误'
-                    localStorage.removeItem('token')
-                    location.reload() // 刷新页面，触发路由守卫
                     break
                 default:
                     return error
