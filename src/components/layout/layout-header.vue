@@ -2,7 +2,7 @@
     <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" @click.stop="mobileShow=false">
         <div class="site-logo">
             <router-link to="/">
-                <img src="@/assets/site-logo.svg" alt="">
+                <img src="@/assets/sword.svg" alt="">
                 <p class="site-name">浩然剑</p>
             </router-link>
         </div>

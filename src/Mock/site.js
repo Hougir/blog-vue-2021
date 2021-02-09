@@ -8,7 +8,7 @@ export default [
             return {
                 code: 20000,
                 data: {
-                    avatar: 'https://s2.ax1x.com/2020/01/17/1SCadg.png',
+                    avatar: 'https://mybucket-2020-7-21.oss-cn-beijing.aliyuncs.com/blog/%E7%8E%8B%E4%B9%8B%E5%89%91.png',
                     slogan: 'Think like a man of action, act like a man of thought.',
                     name: '浩然剑',
                     domain: 'https://www.yellowhao.top',
