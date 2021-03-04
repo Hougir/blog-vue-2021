@@ -22,7 +22,7 @@
               width="40%"
               top="20vh"
               style="height: 800px">
-            <div style="width: 500px;align-items: center;margin-left: 16%;margin-top: 1%" >
+            <div style="width: 66%;align-items: center;margin-left: 16%;margin-top: 1%" >
               <el-form :label-position="labelPosition" label-width="80px" :model="form">
                 <el-form-item label="账号">
                   <el-input prefix-icon="el-icon-user" v-model="form.username" clearable></el-input>
@@ -34,7 +34,7 @@
                   <el-input prefix-icon="el-icon-phone" type="text" v-model="form.phone" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="手机验证码">
-                  <el-input style="width:398px;" prefix-icon="el-icon-message" v-model="form.smsCode" clearable></el-input>
+                  <el-input style="width:70%;" prefix-icon="el-icon-message" v-model="form.smsCode" clearable></el-input>
                   &nbsp;&nbsp;&nbsp;<span v-if="isShowGetCode" class="identiCode" @click="getIdentifyCode">获取验证码</span>
                   <span v-else class="identiCode cancel-pointer">{{countdown }}s后可重试</span>
                 </el-form-item>
