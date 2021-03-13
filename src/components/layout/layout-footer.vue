@@ -69,7 +69,8 @@
 
           </el-dialog>
         </div>
-        <div class="copyright">Copyright © 2021 by <a target="_blank" class="out-link" href="https://www.yellowhao.top">www.yellowhao.top</a> . All rights reserved. | <a target="_blank" class="out-link" href="http://www.beian.miit.gov.cn">鄂ICP备2021003585号</a></div>
+        <div class="copyright">| Copyright © 2021 by | <a target="_blank" class="out-link" href="http://www.yellowhao.top">www.yellowhao.top</a> | All Rights Reserved |</div>
+      <div class="copyright" style="margin-top: 10px"><a target="_blank" class="out-link" href="https://beian.miit.gov.cn">  鄂ICP备2021003585号-1</a></div>
     </div>
 </template>
 
