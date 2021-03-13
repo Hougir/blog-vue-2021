@@ -56,7 +56,7 @@
                   <wxlogin
                       appid="wxed9954c01bb89b47"
                       :scope="'snsapi_login'"
-                      :redirect_uri='encodeURIComponent("http://guli.shop/api/ucenter/wx/callback")'
+                      :redirect_uri='encodeURIComponent("http://yellowhao.top/api/ucenter/wx/callback")'
                       :state="'atguigu'"
                       :style="'black'"
                       :href="'data:text/css;base64,LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDIwMHB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7d2lkdGg6IDIwMHB4O30NCi5zdGF0dXNfaWNvbiB7ZGlzcGxheTogbm9uZX0NCi5pbXBvd2VyQm94IC5zdGF0dXMge3RleHQtYWxpZ246IGNlbnRlcjt9'"
