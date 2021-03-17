@@ -52,7 +52,7 @@ export default [
                         title: 'CSDN',
                         icon: 'iconcsdn',
                         color: 'red',
-                        href: 'https://blog.csdn.net/weixin_48680847'
+                        href: 'https://blog.csdn.net/m0_55988151'
                     }
                 ]
             }

@@ -53,15 +53,16 @@
                   append-to-body
               >
                 <div style="text-align: center">
-                  <wxlogin
+                  <h2>暂未开放</h2><br>
+<!--                  <wxlogin
                       appid="wxed9954c01bb89b47"
                       :scope="'snsapi_login'"
-                      :redirect_uri='encodeURIComponent("http://guli.shop/api/ucenter/wx/callback")'
+                      :redirect_uri='encodeURIComponent("https://guli.shop/api/ucenter/wx/callback")'
                       :state="'atguigu'"
                       :style="'black'"
                       :href="'data:text/css;base64,LmltcG93ZXJCb3ggLnFyY29kZSB7d2lkdGg6IDIwMHB4O30NCi5pbXBvd2VyQm94IC50aXRsZSB7ZGlzcGxheTogbm9uZTt9DQouaW1wb3dlckJveCAuaW5mbyB7d2lkdGg6IDIwMHB4O30NCi5zdGF0dXNfaWNvbiB7ZGlzcGxheTogbm9uZX0NCi5pbXBvd2VyQm94IC5zdGF0dXMge3RleHQtYWxpZ246IGNlbnRlcjt9'"
                       rel="external nofollow">
-                  </wxlogin>
+                  </wxlogin>-->
                   <el-button type="primary" @click="dialogVisible2 = false">账号密码登录</el-button>
                 </div>
               </el-dialog>
@@ -69,7 +70,7 @@
 
           </el-dialog>
         </div>
-        <div class="copyright">| Copyright © 2021 by | <a target="_blank" class="out-link" href="http://www.yellowhao.top">www.yellowhao.top</a> | All Rights Reserved |</div>
+        <div class="copyright">| Copyright © 2021 by | <a target="_blank" class="out-link" href="http://blog.yellowhao.top">blog.yellowhao.top</a> | All Rights Reserved |</div>
       <div class="copyright" style="margin-top: 10px"><a target="_blank" class="out-link" href="https://beian.miit.gov.cn">  鄂ICP备2021003585号-1</a></div>
     </div>
 </template>
