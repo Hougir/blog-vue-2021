@@ -19,9 +19,9 @@
               title="后台登录"
               center
               :visible.sync="dialogVisible"
-              width="40%"
-              top="20vh"
-              style="height: 800px">
+              width="80vh"
+              top="10vh"
+              style="height: 800vh">
             <div style="width: 66%;align-items: center;margin-left: 16%;margin-top: 1%" >
               <el-form :label-position="labelPosition" label-width="80px" :model="form">
                 <el-form-item label="账号">

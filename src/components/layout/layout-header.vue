@@ -38,15 +38,15 @@
           <el-dialog
               title="用户信息"
               :visible.sync="dialogVisible"
-              width="30%"
-              top="12vh"
+              width="40vh"
+              top="15vh"
               center
               :modal="false"
-              style="margin-left: 1200px;height: 800px;text-align: center"
+              style="margin-left: 140vh;height: 80vh;text-align: center"
               align="center"
           >
             <div style="text-align: center">
-              <span><img :src="loginInfo.avatar"></span><br><br>
+              <span><img :src="loginInfo.avatar" width="69%"></span><br><br>
               <span>昵称: {{ loginInfo.nickname }}</span><br><br>
               <span>琴瑟在御，莫不静好</span><br><br>
               <a href="javascript:void(0)" @click="toAdmin">进入后台</a><br><br>
